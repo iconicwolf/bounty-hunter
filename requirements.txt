@@ -9,3 +9,4 @@ playwright
 google-search-results
 pytest
 httpx
+email-validator

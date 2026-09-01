@@ -54,7 +54,7 @@ We never put passwords in the code. We put them in a `.env` file. The app reads 
 ## 🤖 4. The Agent Brains
 
 ### The Hunter Agent
-Uses **SerpApi** to query Google. It uses a "Matching Algorithm" to compare keywords in a job description with your professional profile.
+Uses **SerpApi** to query Google. It uses a "Matching Algorithm" to compare keywords in a job description with your professional profile. It also uses **Playwright** to capture visual evidence (screenshots) of the jobs it finds, ensuring you have a record of the original posting.
 
 ### The Adversary Agent
 This is a **Chaos Agent**. It uses a technique called "Fuzzing"—sending random or malicious data to the API to see if it crashes.

@@ -10,6 +10,7 @@ This document defines the specific capabilities and tools available to the agent
 | `live_search` | SerpApi (Google Jobs) | Performs real-time queries across Google Jobs and other aggregators. |
 | `profile_matching` | Pydantic / Logic | Compares job descriptions against `UserProfile` skills to calculate a match score. |
 | `web_scraping` | Playwright / BeautifulSoup | Extracts detailed job requirements and application links from target pages. |
+| `evidence_capture` | Playwright | Takes high-resolution screenshots of job postings for visual verification. |
 | `app_tracking` | SQLAlchemy | Automatically injects found roles into the `Applications` table. |
 
 ## 👹 The Adversary (Chaos Agent)

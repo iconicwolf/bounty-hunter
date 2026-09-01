@@ -20,6 +20,7 @@ class ApplicationCreate(ApplicationBase):
 class ApplicationRead(ApplicationBase):
     id: int
     date_applied: datetime
+    evidence_path: Optional[str] = None
 
     class Config:
         from_attributes = True

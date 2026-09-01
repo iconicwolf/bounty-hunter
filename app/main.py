@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from app.api.endpoints import profile, applications, filters, agents
 from app.db import Base, engine
 
@@ -6,10 +7,13 @@ from app.db import Base, engine
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="CareerOS API",
+    title="BountyHunter API",
     description="Agentic Career Application Tracker & Automator",
     version="0.1.0"
 )
+
+# Mount static files for evidence capture
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Include routers
 app.include_router(profile.router)
@@ -19,7 +23,7 @@ app.include_router(agents.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to CareerOS API. Visit /docs for documentation."}
+    return {"message": "Welcome to BountyHunter API. Visit /docs for documentation."}
 
 if __name__ == "__main__":
     import uvicorn

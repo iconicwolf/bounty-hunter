@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BountyHunter | Career OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
+        .gold-gradient { background: linear-gradient(135deg, #ecc94b 0%, #d69e2e 100%); }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(236, 201, 75, 0.2); }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; border-color: #ecc94b; }
+        .btn-gold { background-color: #ecc94b; color: #1a202c; font-weight: bold; transition: all 0.2s; }
+        .btn-gold:hover { background-color: #d69e2e; box-shadow: 0 0 15px rgba(236, 201, 75, 0.4); }
+    </style>
+</head>
+<body>
+    <div id="app" class="min-h-screen p-4 md:p-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-12 max-w-6xl mx-auto">
+            <div class="flex items-center gap-4">
+                <img src="http://localhost:8001/static/logo.svg" alt="Logo" class="w-12 h-12">
+                <h1 class="text-3xl font-bold tracking-tighter">BOUNTY<span class="text-[#ecc94b]">HUNTER</span></h1>
+            </div>
+            <div class="flex gap-4">
+                <button @click="view = 'profile'" :class="view === 'profile' ? 'btn-gold' : 'text-slate-400 hover:text-white'" class="px-4 py-2 rounded-lg transition">My Profile</button>
+                <button @click="view = 'filters'" :class="view === 'filters' ? 'btn-gold' : 'text-slate-400 hover:text-white'" class="px-4 py-2 rounded-lg transition">Filters</button>
+                <button @click="view = 'dashboard'" :class="view === 'dashboard' ? 'btn-gold' : 'text-slate-400 hover:text-white'" class="px-4 py-2 rounded-lg transition">Dashboard</button>
+            </div>
+        </header>
+
+        <main class="max-w-6xl mx-auto">
+            <!-- PROFILE PAGE -->
+            <section v-if="view === 'profile'" class="glass p-8 rounded-2xl animate-fade-in">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fas fa-user-circle text-[#ecc94b]"></i> Professional Persona
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Full Name</label>
+                            <input v-model="profile.full_name" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Professional Title</label>
+                            <input v-model="profile.professional_title" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Email</label>
+                            <input v-model="profile.email" type="email" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Experience (Years)</label>
+                            <input v-model.number="profile.experience_years" type="number" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Skills (comma separated)</label>
+                            <input v-model="skillsInput" @blur="updateSkills" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none" placeholder="Python, FastAPI, React...">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Target Roles (comma separated)</label>
+                            <input v-model="rolesInput" @blur="updateRoles" class="w-//bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none" placeholder="Backend Engineer, AI Specialist...">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Bio/Achievements</label>
+                            <textarea v-model="profile.bio" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none h-32"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button @click="saveProfile" class="btn-gold px-8 py-3 rounded-xl mt-8 flex items-center gap-2">
+                    <i class="fas fa-save"></i> Save Persona
+                </button>
+            </section>
+
+            <!-- FILTERS PAGE -->
+            <section v-if="view === 'filters'" class="glass p-8 rounded-2xl animate-fade-in">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fas fa-filter text-[#ecc94b]"></i> Hunting Parameters
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Keywords (comma separated)</label>
+                            <input v-model="filterInput" @blur="updateFilterKeywords" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none" placeholder="AI, Distributed Systems...">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Locations (comma separated)</label>
+                            <input v-model="locationInput" @blur="updateFilterLocations" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none" placeholder="Remote, New York, London...">
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-slate-900 rounded-lg border border-slate-700">
+                            <input type="checkbox" v-model="filters.remote_only" id="remote" class="w-5 h-5 accent-[#ecc94b]">
+                            <label for="remote" class="text-lg">Remote Only</label>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Min Salary</label>
+                            <input v-model.number="filters.min_salary" type="number" class="w-full bg-slate-900 border border-slate-700 p-2 rounded-lg focus:border-[#ecc94b] outline-none">
+                        </div>
+                    </div>
+                </div>
+                <button @click="saveFilters" class="btn-gold px-8 py-3 rounded-xl mt-8 flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i> Update Parameters
+                </button>
+            </section>
+
+            <!-- DASHBOARD PAGE -->
+            <section v-if="view === 'dashboard'" class="animate-fade-in">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold flex items-center gap-3">
+                        <i class="fas fa-crosshairs text-[#ecc94b]"></i> Active Bounties
+                    </h2>
+                    <button @click="triggerHunter" :disabled="loading" class="btn-gold px-6 py-3 rounded-xl flex items-center gap-2">
+                        <i class="fas" :class="loading ? 'fa-spinner fa-spin' : 'fa-search'"></i>
+                        {{ loading ? 'Hunting...' : 'Deploy Hunter Agent' }}
+                    </button>
+                </div>
+
+                <div v-if="apps.length === 0" class="text-center py-20 glass rounded-2xl">
+                    <i class="fas fa- binoculars text-5xl text-slate-600 mb-4"></i>
+                    <p class="text-slate-400 text-xl">No bounties found yet. Deploy the agent to start the hunt!</p>
+                </div>
+
+                <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div v-for="app in apps" :key="app.id" class="glass p-6 rounded-2xl card-hover relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-2">
+                            <span :class="statusColor(app.status)" class="text-xs px-2 py-1 rounded-full font-bold uppercase">
+                                {{ app.status }}
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1">{{ app.role_title }}</h3>
+                        <p class="text-[#ecc94b] font-medium mb-4">{{ app.company_name }}</p>
+
+                        <div class="text-sm text-slate-400 space-y-2 mb-6">
+                            <p class="flex items-center gap-2"><i class="fas fa-link"></i> <a :href="app.job_url" target="_blank" class="hover:text-white truncate">{{ app.job_url }}</a></p>
+                            <p class="flex items-center gap-2"><i class="fas fa-calendar"></i> {{ formatDate(app.date_applied) }}</p>
+                        </div>
+
+                        <!-- Evidence Section -->
+                        <div v-if="app.evidence_path" class="mb-4">
+                            <p class="text-xs text-slate-500 mb-2 uppercase font-bold">Visual Evidence</p>
+                            <img :src="`http://localhost:8001${app.evidence_path}`" class="w-full h-32 object-cover rounded-lg border border-slate-700 cursor-pointer hover:opacity-80 transition" @click="openImage(app.evidence_path)">
+                        </div>
+
+                        <div class="flex gap-2">
+                            <button @click="deleteApp(app.id)" class="flex-1 py-2 bg-slate-800 hover:bg-red-900 text-slate-400 hover:text-white rounded-lg transition text-sm">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                            <a :href="app.job_url" target="_blank" class="flex-1 py-2 btn-gold text-center rounded-lg text-sm">
+                                Apply Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted } = Vue;
+        const API_BASE = "http://localhost:8001";
+
+        createApp({
+            setup() {
+                const view = ref('dashboard');
+                const loading = ref(false);
+                const apps = ref([]);
+                const profile = ref({});
+                const filters = ref({});
+                const skillsInput = ref('');
+                const rolesInput = ref('');
+                const filterInput = ref('');
+                const locationInput = ref('');
+
+                const fetchProfile = async () => {
+                    const res = await axios.get(`${API_BASE}/profile`);
+                    profile.value = res.data;
+                    skillsInput.value = profile.value.skills.join(', ');
+                    rolesInput.value = profile.value.target_roles.join(', ');
+                };
+
+                const fetchFilters = async () => {
+                    const res = await axios.get(`${API_BASE}/filters`);
+                    filters.value = res.data;
+                    filterInput.value = filters.value.keywords.join(', ');
+                    locationInput.value = filters.value.locations.join(', ');
+                };
+
+                const fetchApps = async () => {
+                    const res = await axios.get(`${API_BASE}/applications`);
+                    apps.value = res.data;
+                };
+
+                const saveProfile = async () => {
+                    try {
+                        await axios.post(`${API_BASE}/profile`, profile.value);
+                        alert('Persona updated successfully!');
+                    } catch (e) { alert('Error saving profile'); }
+                };
+
+                const saveFilters = async () => {
+                    try {
+                        await axios.post(`${API_BASE}/filters`, filters.value);
+                        alert('Filters updated successfully!');
+                    } catch (e) { alert('Error saving filters'); }
+                };
+
+                const triggerHunter = async () => {
+                    loading.value = true;
+                    try {
+                        await axios.post(`${API_BASE}/agents/hunter/search`);
+                        alert('Hunter Agent deployed! It is now searching the web in the background.');
+                        // Poll for results every 5 seconds for a bit
+                        let count = 0;
+                        const interval = setInterval(async () => {
+                            await fetchApps();
+                            count++;
+                            if (count > 10) clearInterval(interval);
+                        }, 5000);
+                    } catch (e) { alert('Agent deployment failed'); }
+                    finally { loading.value = false; }
+                };
+
+                const deleteApp = async (id) => {
+                    if (!confirm('Remove this bounty?')) return;
+                    await axios.delete(`${API_BASE}/applications/${id}`);
+                    await fetchApps();
+                };
+
+                const updateSkills = () => {
+                    profile.value.skills = skillsInput.value.split(',').map(s => s.trim()).filter(s => s);
+                };
+
+                const updateRoles = () => {
+                    profile.value.target_roles = rolesInput.value.split(',').map(s => s.trim()).filter(s => s);
+                };
+
+                const updateFilterKeywords = () => {
+                    filters.value.keywords = filterInput.value.split(',').map(s => s.trim()).filter(s => s);
+                };
+
+                const updateFilterLocations = () => {
+                    filters.value.locations = locationInput.value.split(',').map(s => s.trim()).filter(s => s);
+                };
+
+                const statusColor = (status) => {
+                    const colors = {
+                        'Wishlist': 'bg-slate-700 text-slate-300',
+                        'Applied': 'bg-blue-900 text-blue-200',
+                        'Interviewing': 'bg-purple-900 text-purple-200',
+                        'Offer': 'bg-green-900 text-green-200',
+                        'Rejected': 'bg-red-900 text-red-200',
+                    };
+                    return colors[status] || 'bg-slate-700 text-slate-300';
+                };
+
+                const formatDate = (date) => {
+                    return new Date(date).toLocaleDateString();
+                };
+
+                const openImage = (path) => {
+                    window.open(`http://localhost:8001${path}`, '_blank');
+                };
+
+                onMounted(async () => {
+                    await fetchProfile();
+                    await fetchFilters();
+                    await fetchApps();
+                });
+
+                return {
+                    view, loading, apps, profile, filters,
+                    skillsInput, rolesInput, filterInput, locationInput,
+                    saveProfile, saveFilters, triggerHunter, deleteApp,
+                    updateSkills, updateRoles, updateFilterKeywords, updateFilterLocations,
+                    statusColor, formatDate, openImage
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

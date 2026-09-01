@@ -22,5 +22,6 @@ class Application(Base):
     date_applied = Column(DateTime(timezone=True), server_default=func.now())
     follow_up_date = Column(DateTime(timezone=True), nullable=True)
     contact_person = Column(String, nullable=True)
-    material_used = Column(Text, nullable=True) # Resume/CV version
+    material_used = Column(Text, nullable=True)
     notes = Column(Text, nullable=True)
+    evidence_path = Column(String, nullable=True) # Path to the captured screenshot

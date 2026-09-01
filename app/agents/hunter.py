@@ -1,4 +1,6 @@
 import logging
+import os
+import asyncio
 from typing import List, Dict, Any
 from sqlalchemy.orm import Session
 from app.db import SessionLocal
@@ -7,6 +9,7 @@ from app.models.job_filter import JobFilter
 from app.models.application import Application, AppStatus
 from app.core.config import settings
 from serpapi import GoogleSearch
+from playwright.async_api import async_playwright
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("HunterAgent")
@@ -23,7 +26,6 @@ class HunterAgent:
             logger.error("User profile not found. Please set up your profile in the UI.")
             return None
 
-        # Combine target roles from profile and keywords from filter
         keywords = job_filter.keywords if job_filter else profile.target_roles
         locations = job_filter.locations if job_filter else ["Remote"]
 
@@ -32,6 +34,25 @@ class HunterAgent:
             "locations": locations,
             "profile": profile
         }
+
+    async def capture_evidence(self, url: str, app_id: int) -> str:
+        """Uses Playwright to take a screenshot of the job posting."""
+        try:
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(headless=True)
+                page = await browser.new_page()
+                await page.goto(url, timeout=60000)
+
+                filename = f"app_{app_id}.png"
+                filepath = os.path.join("static/evidence", filename)
+                await page.screenshot(path=filepath, full_page=False)
+                await browser.close()
+
+                logger.info(f"Evidence captured: {filepath}")
+                return f"/static/evidence/{filename}"
+        except Exception as e:
+            logger.error(f"Failed to capture evidence for {url}: {e}")
+            return None
 
     async def search_jobs(self) -> List[Dict[str, Any]]:
         params = self.get_search_params()
@@ -72,7 +93,7 @@ class HunterAgent:
         profile = self.db.query(UserProfile).first()
 
         for job in jobs:
-            if not job['company'] or not job['role']:
+            if not job['company'] or not job['role'] or job['url'] == "N/A":
                 continue
 
             match_score = 0
@@ -97,8 +118,13 @@ class HunterAgent:
                         notes=f"Auto-found by Hunter Agent. Match Score: {match_score}"
                     )
                     self.db.add(new_app)
+                    self.db.commit()
+                    self.db.refresh(new_app)
 
-        self.db.commit()
+                    # Capture visual evidence
+                    evidence_path = await self.capture_evidence(job['url'], new_app.id)
+                    new_app.evidence_path = evidence_path
+                    self.db.commit()
 
     async def run_cycle(self):
         logger.info("Starting BountyHunter sourcing cycle...")

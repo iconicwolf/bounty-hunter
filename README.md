@@ -2,7 +2,7 @@
 
 BountyHunter is a high-performance, agentic career automation system. Unlike a simple job tracker, BountyHunter uses a **Council of Agents** to source, match, and track job opportunities while utilizing "Chaos Engineering" to ensure the system is rigorous and production-ready.
 
-![BountyHunter Logo](https://via.placeholder.com/800x400?text=BountyHunter+Logo+-+Crosshair+and+Briefcase)
+![BountyHunter Logo](static/logo.svg)
 
 ## 🌟 Core Capabilities
 

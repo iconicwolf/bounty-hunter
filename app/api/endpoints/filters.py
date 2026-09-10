@@ -15,7 +15,7 @@ async def get_filter(db: Session = Depends(get_db)):
             locations=[],
             job_types=["Full-time"],
             remote_only=False,
-            automation_enabled=False
+            auto_apply=False
         )
     return filter_obj
 

@@ -8,7 +8,7 @@ class JobFilterBase(BaseModel):
     max_salary: Optional[int] = None
     job_types: List[str] = Field(default=["Full-time"], description="Job types")
     remote_only: bool = False
-    automation_enabled: bool = False
+    auto_apply: bool = False
 
 class JobFilterCreate(JobFilterBase):
     pass

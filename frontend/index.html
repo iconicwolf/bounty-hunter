@@ -436,7 +436,7 @@
 
                 const fetchProfile = async () => {
                     try {
-                        const res = await axios.get(`${API_BASE}/profile`);
+                        const res = await axios.get(`${API_BASE}/profile/`);
                         profile.value = res.data;
                         skillsInput.value = profile.value.skills ? profile.value.skills.join(', ') : '';
                         rolesInput.value = profile.value.target_roles ? profile.value.target_roles.join(', ') : '';
@@ -445,7 +445,7 @@
 
                 const fetchFilters = async () => {
                     try {
-                        const res = await axios.get(`${API_BASE}/filters`);
+                        const res = await axios.get(`${API_BASE}/filters/`);
                         filters.value = res.data;
                         filterInput.value = filters.value.keywords ? filters.value.keywords.join(', ') : '';
                         locationInput.value = filters.value.locations ? filters.value.locations.join(', ') : '';
@@ -470,7 +470,7 @@
                     errors.value = {};
                     loading.value = true;
                     try {
-                        await axios.post(`${API_BASE}/profile`, profile.value);
+                        await axios.post(`${API_BASE}/profile/`, profile.value);
                         notify('Professional Persona synchronized.');
                     } catch (e) {
                         const errData = e.response?.data?.detail || "Internal Server Error";
@@ -490,7 +490,7 @@
                 const saveFilters = async () => {
                     loading.value = true;
                     try {
-                        await axios.post(`${API_BASE}/filters`, filters.value);
+                        await axios.post(`${API_BASE}/filters/`, filters.value);
                         notify('Hunting parameters updated.');
                     } catch (e) {
                         notify(e.response?.data?.detail || 'Error updating filters', 'error');

@@ -285,7 +285,7 @@
                     <!-- Hunt Status Summary -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                         <div class="executive-glass p-6 rounded-2xl border-l-4 border-l-[#D4AF37]">
-                            <div class="text-xs uppercase text-slate-500 font-bold mb-1">Total Bounties</div>
+                            <div class="text-xs uppercase text-slate-500 font-bold mb-1">Total Opportunities</div>
                             <div class="text-3xl font-bold text-white serif">{{ apps.length }}</div>
                         </div>
                         <div class="executive-glass p-6 rounded-2xl border-l-4 border-l-blue-500">
@@ -295,20 +295,6 @@
                         <div class="executive-glass p-6 rounded-2xl border-l-4 border-l-green-500">
                             <div class="text-xs uppercase text-slate-500 font-bold mb-1">High Match Rate</div>
                             <div class="text-3xl font-bold text-white serif">{{ calculateMatchRate() }}%</div>
-                        </div>
-                    </div>
-
-                    <!-- Designer Intelligence Section -->
-                    <div v-if="designerSuggestions.length > 0" class="mb-12 animate-fade-in">
-                        <div class="flex items-center gap-3 mb-4">
-                            <i class="fas fa-magic text-[#D4AF37]"></i>
-                            <h3 class="text-lg font-bold text-white serif">Designer Agent Intelligence</h3>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            <div v-for="suggestion in designerSuggestions" :key="suggestion.title" class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 hover:border-[#D4AF37]/50 transition cursor-help group">
-                                <div class="text-[10px] uppercase font-bold text-[#D4AF37] mb-1 tracking-tighter">{{ suggestion.title }}</div>
-                                <div class="text-xs text-slate-400 leading-relaxed group-hover:text-slate-300 transition">{{ suggestion.description }}</div>
-                            </div>
                         </div>
                     </div>
 
@@ -406,7 +392,6 @@
                 const filters = ref({});
                 const errors = ref({});
                 const toasts = ref([]);
-                const designerSuggestions = ref([]);
 
                 const skillsInput = ref('');
                 const rolesInput = ref('');
@@ -419,19 +404,6 @@
                     setTimeout(() => {
                         toasts.value = toasts.value.filter(t => t.id !== id);
                     }, 4000);
-                };
-
-                const fetchDesignSpec = async () => {
-                    try {
-                        const res = await axios.get(`${API_BASE}/agents/designer/spec/MainDashboard`);
-                        const palette = res.data.palette;
-                        const root = document.documentElement;
-                        root.style.setProperty('--corp-gold', palette.primary);
-                        root.style.setProperty('--corp-navy', palette.secondary);
-                        root.style.setProperty('--corp-slate', palette.accent);
-                        root.style.setProperty('--corp-text', palette.text);
-                        console.log('Dynamic branding applied from DesignerAgent.');
-                    } catch (e) { console.error('Failed to load dynamic branding:', e); }
                 };
 
                 const fetchProfile = async () => {
@@ -457,13 +429,6 @@
                         const res = await axios.get(`${API_BASE}/applications`);
                         apps.value = res.data;
                     } catch (e) { console.error(e); }
-                };
-
-                const fetchDesignerSuggestions = async () => {
-                    try {
-                        const res = await axios.get(`${API_BASE}/agents/designer/suggestions`);
-                        designerSuggestions.value = res.data;
-                    } catch (e) { console.error('Failed to load designer suggestions:', e); }
                 };
 
                 const saveProfile = async () => {
@@ -503,7 +468,7 @@
                     loading.value = true;
                     try {
                         await axios.post(`${API_BASE}/agents/hunter/search`);
-                        notify('Hunter Agent deployed. Sourcing bounties...');
+                        notify('Hunter Agent deployed. Sourcing opportunities...');
                         if (filters.value.auto_apply) {
                             notify('Autonomous Application active: High-match roles will be applied to automatically.', 'success');
                         }
@@ -521,13 +486,13 @@
                 };
 
                 const deleteApp = async (id) => {
-                    if (!confirm('Remove this bounty?')) return;
+                    if (!confirm('Remove this opportunity?')) return;
                     try {
                         await axios.delete(`${API_BASE}/applications/${id}`);
-                        notify('Bounty removed.');
+                        notify('Opportunity removed.');
                         await fetchApps();
                     } catch (e) {
-                        notify('Failed to remove bounty', 'error');
+                        notify('Failed to remove opportunity', 'error');
                     }
                 };
 
@@ -585,15 +550,13 @@
                 };
 
                 onMounted(async () => {
-                    await fetchDesignSpec();
                     await fetchProfile();
                     await fetchFilters();
                     await fetchApps();
-                    await fetchDesignerSuggestions();
                 });
 
                 return {
-                    view, loading, apps, profile, filters, errors, toasts, designerSuggestions,
+                    view, loading, apps, profile, filters, errors, toasts,
                     skillsInput, rolesInput, filterInput, locationInput,
                     saveProfile, saveFilters, triggerHunter, deleteApp,
                     updateSkills, updateRoles, updateFilterKeywords, updateFilterLocations,

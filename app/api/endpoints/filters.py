@@ -33,7 +33,6 @@ async def set_filter(filter_data: JobFilterCreate, db: Session = Depends(get_db)
         return existing_filter
 
     db_filter = JobFilter(**filter_data.model_dump())
-    db.add(db_// l.. wait.
     db.add(db_filter)
     db.commit()
     db.refresh(db_filter)

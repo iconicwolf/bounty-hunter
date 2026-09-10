@@ -32,7 +32,8 @@ class HunterAgent:
         return {
             "keywords": keywords,
             "locations": locations,
-            "profile": profile
+            "profile": profile,
+            "filter": job_filter
         }
 
     async def capture_evidence(self, url: str, app_id: int) -> str:
@@ -90,32 +91,50 @@ class HunterAgent:
             return []
 
     async def analyze_and_track(self, jobs: List[Dict[str, Any]]):
-        profile = self.db.query(UserProfile).first()
+        params = self.get_search_params()
+        if not params:
+            return
+
+        profile = params['profile']
+        job_filter = params['filter']
 
         for job in jobs:
             if not job['company'] or not job['role'] or job['url'] == "N/A":
                 continue
 
-            match_score = 0
+            # Calculate match score based on skills
+            match_count = 0
             description = (job['description'] or "").lower()
             for skill in profile.skills:
                 if skill.lower() in description:
-                    match_score += 1
+                    match_count += 1
+
+            # Calculate score as percentage of profile skills found in description
+            match_score = 0
+            if profile.skills:
+                match_score = int((match_count / len(profile.skills)) * 100)
 
             if match_score > 0:
-                logger.info(f"Match Found: {job['role']} at {job['company']} (Score: {match_score})")
+                logger.info(f"Match Found: {job['role']} at {job['company']} (Score: {match_score}%)")
 
                 exists = self.db.query(Application).filter(
                     Application.job_url == job['url']
                 ).first()
 
                 if not exists:
+                    # Determine status: if auto_apply is on and score is high (>= 70%), mark as Applied
+                    status = AppStatus.WISHLIST
+                    if job_filter and job_filter.auto_apply and match_score >= 70:
+                        status = AppStatus.APPLIED
+                        logger.info(f"🚀 Auto-Applying to {job['company']} due to high match score ({match_score}%)")
+
                     new_app = Application(
                         company_name=job['company'],
                         role_title=job['role'],
                         job_url=job['url'],
-                        status=AppStatus.WISHLIST,
-                        notes=f"Auto-found by Hunter Agent. Match Score: {match_score}"
+                        status=status,
+                        match_score=match_score,
+                        notes=f"Auto-found by Hunter Agent. Match Score: {match_score}%"
                     )
                     self.db.add(new_app)
                     self.db.commit()

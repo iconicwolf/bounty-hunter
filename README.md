@@ -1,73 +1,110 @@
-# 🎯 BountyHunter: Agentic Career OS
-
-BountyHunter is a high-performance, agentic career automation system. It transforms the job search from a manual chore into a targeted operation, using a **Council of Agents** to source, match, and track job opportunities.
+# 🎯 BountyHunter: The Agentic Career OS
+**A high-performance, reference implementation for autonomous professional trajectory management.**
 
 ![BountyHunter Logo](static/logo.svg)
 
-## 🌟 Core Capabilities
-
-### 1. Live Agentic Sourcing (The Hunter)
-The **Hunter Agent** doesn't just search; it hunts.
-- **Real-time Sourcing**: Integrated with SerpApi (Google Jobs) to find the latest postings across the entire web.
-- **Intelligent Matching**: Uses your professional persona to calculate a "Match Score" for every job found.
-- **Visual Evidence**: Uses **Playwright** to take real-time screenshots of job postings, providing a visual "paper trail" for every lead.
-- **Auto-Tracking**: Automatically populates your application tracker with high-match roles.
-
-### 2. Chaos-Driven Rigor (The Adversary & Refiner)
-BountyHunter is built to be unbreakable through "Chaos Engineering."
-- **Continuous Breaking**: The **Adversary Agent** constantly attacks the API with SQL injections and malformed data to find vulnerabilities.
-- **Self-Healing**: The **Refiner Agent** analyzes these attacks and implements architectural improvements to harden the system.
-
-### 3. Professional Identity Management
-- **Persona-Based Search**: The agent acts on behalf of your unique professional identity (skills, achievements, target roles).
-- **Granular Filtering**: Control exactly what the agent hunts for (Salary, Location, Remote/On-site).
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white)](https://playwright.dev/)
+[![SerpApi](https://img.shields.io/badge/SerpApi-4285F4?style=flat-square&logo=google&logoColor=white)](https://serpapi.com/)
 
 ---
 
-## 🛠️ Technology Stack
+## 📜 The Manifesto
+**BountyHunter is not a "spray-and-pray" automation tool.** 
 
-| Layer | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Frontend** | React/Vue + Tailwind CSS | World-class a-grade professional dashboard. |
-| **Backend** | [FastAPI](https://fastapi.tiangolo.com/) | High-performance asynchronous API. |
-| **Database** | [PostgreSQL](https://www.postgresql.org/) | Persistent, ACID-compliant data storage. |
-| **ORM** | [SQLAlchemy](https://www.sqlalchemy.org/) | Object-relational mapping for clean data logic. |
-| **Agents** | [Playwright](https://playwright.dev/) | Browser automation for sourcing and evidence capture. |
-| **Search** | [SerpApi](https://serpapi.com/) | Real-time Google Jobs data access. |
-| **Infrastructure** | [Docker](https://www.docker.com/) | Containerized, environment-agnostic deployment. |
+We believe that job searching should be a targeted operation, not a numbers game. Most AI tools flood recruiters with low-quality applications; BountyHunter does the opposite. It uses a **Council of Agents** to act as a high-fidelity filter, ensuring that only the most strategic opportunities reach your desk.
+
+**The Core Principle:** AI evaluates, recommends, and prepares; the Human decides and acts. We provide the intelligence and the evidence, but you retain the agency.
+
+---
+
+## 🏗️ System Pipeline (The Enterprise Loop)
+BountyHunter operates on a closed-loop governance model to ensure architectural rigor and zero-hallucination sourcing.
+
+```mermaid
+graph LR
+    A[Executive: Requirement] --> B[Hunter: Sourcing]
+    B --> C[Hunter: Match Scoring]
+    C --> D{Auto-Apply?}
+    D -- Yes --> E[Applicant: Auto-Apply]
+    D -- No --> F[Wishlist]
+    E --> G[Adversary: Chaos Test]
+    F --> G
+    G --> H[Refiner: Hardening]
+    H --> I[Executive: Final Approval]
+    I --> J[Deployed Portfolio]
+```
+
+---
+
+## 🛠️ Capabilities Matrix
+
+| Agent | Role | Enterprise Capability | Outcome |
+| :--- | :--- | :--- | :--- |
+| **The Executive** | Project Manager | Requirements Analysis & Quality Gates | Strategic Alignment |
+| **The Hunter** | Sourcing Specialist | Real-time Web-Scale Sourcing & Evidence Capture | High-Fidelity Leads |
+| **The Adversary** | Chaos Engineer | Adversarial API Testing & Edge-Case Discovery | System Rigor |
+| **The Refiner** | Optimization Expert | Vulnerability Patching & Performance Tuning | Hardened Infrastructure |
+| **The Designer** | Brand Identity | UI/UX Audit & Brand Consistency Enforcement | Executive Aesthetics |
+
+---
+
+## 📂 Project Blueprint
+```text
+bounty-hunter/
+├── app/
+│   ├── agents/             # The Council of Agents (Executive, Hunter, Adversary, etc.)
+│   ├── api/                # High-performance FastAPI endpoints
+│   │   └── endpoints/      # Modular route handlers for Profile, Filters, and Agents
+│   ├── core/               # System configuration and environment management
+│   ├── models/             # SQLAlchemy ACID-compliant data models
+│   └── schemas/            # Pydantic data validation layers
+├── docs/                   # Technical Wiki and Governance Models
+│   └── wiki/               # Fundamentals, Backend, Infra, and Agentic Systems
+├── frontend/               # Executive Suite Dashboard (Vue.js + Tailwind)
+└── static/                 # Evidence store and brand assets
+```
 
 ---
 
 ## 🚀 Quick Start Guide
 
 ### 1. Prerequisites
-- Docker & Docker Compose installed.
-- A [SerpApi Key](https://serpapi.com/).
+- Docker & Docker Compose
+- A [SerpApi Key](https://serpapi.com/)
 
-### 2. Setup & Launch
+### 2. Launch Sequence
 ```bash
-# Clone the repository
+# Clone the HQ
 git clone https://github.com/iconicwolf/bounty-hunter.git
 cd bounty-hunter
 
-# Configure environment
+# Configure the environment
 cp .env.example .env
-# Edit .env and add your SERPAPI_KEY
+# Edit .env and insert your SERPAPI_KEY
 
-# Launch the system
+# Deploy the system
 docker-compose up --build -d
 ```
 
-### 3. Using the Application
-1. **Open Dashboard**: Open `frontend/index.html` in your browser.
-2. **Set Your Persona**: Go to **Professional Persona** and enter your skills and achievements.
-3. **Configure Filters**: Go to **Hunting Parameters** to define your ideal role.
-4. **Deploy the Hunter**: Click **Deploy Hunter Agent** to begin the sourcing cycle.
-5. **Review Bounties**: View matched jobs and their visual evidence in the **Dashboard**.
+### 3. Operational Flow
+1. **Identity Sync**: Open `frontend/index.html` and define your **Professional Persona**.
+2. **Parameter Set**: Configure your **Strategic Keywords** and **Target Geographies**.
+3. **Deploy Hunter**: Initiate the sourcing cycle.
+4. **Review Bounties**: Analyze high-match roles and their visual evidence.
+
+---
+
+## 💰 Running on a Budget
+BountyHunter is designed to be resource-efficient.
+- **SerpApi**: Use the free tier for initial testing (100 searches/month).
+- **Docker**: The system uses a lightweight PostgreSQL image to minimize RAM usage.
+- **Localhost**: The entire suite runs locally, ensuring your professional data never leaves your machine except for the encrypted API calls to search providers.
 
 ---
 
 ## 🎓 Learning Center
-This project is a masterclass in modern AI engineering. Explore the `docs/` folder for:
-- **TECHNICAL_GUIDE.md**: A ground-up explanation of MVC, Agentic Loops, and Docker for beginners.
-- **skills.md**: A detailed matrix of agent capabilities.
+This project serves as a reference implementation for **Agentic Governance**. Explore the `docs/` folder for a deep dive into:
+- **TECHNICAL_GUIDE.md**: Ground-up explanation of MVC and Agentic Loops.
+- **Governance Model**: How the Executive/Council hierarchy prevents AI hallucinations.

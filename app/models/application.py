@@ -25,3 +25,4 @@ class Application(Base):
     material_used = Column(Text, nullable=True)
     notes = Column(Text, nullable=True)
     evidence_path = Column(String, nullable=True) # Path to the captured screenshot
+    match_score = Column(Integer, nullable=True) # Store the calculated match score

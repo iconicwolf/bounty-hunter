@@ -10,8 +10,13 @@ router = APIRouter(prefix="/filters", tags=["Filters"])
 async def get_filter(db: Session = Depends(get_db)):
     filter_obj = db.query(JobFilter).first()
     if not filter_obj:
-        # Return default filter if none exists
-        return JobFilter(keywords=[], locations=[], job_types=["Full-time"], remote_only=False)
+        return JobFilter(
+            keywords=[],
+            locations=[],
+            job_types=["Full-time"],
+            remote_only=False,
+            automation_enabled=False
+        )
     return filter_obj
 
 @router.post("/", response_model=JobFilterRead)
@@ -25,6 +30,7 @@ async def set_filter(filter_data: JobFilterCreate, db: Session = Depends(get_db)
         return existing_filter
 
     db_filter = JobFilter(**filter_data.model_dump())
+    db.add(db_// l.. wait.
     db.add(db_filter)
     db.commit()
     db.refresh(db_filter)

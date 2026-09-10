@@ -47,6 +47,7 @@ graph LR
 | **The Adversary** | Chaos Engineer | Adversarial API Testing & Edge-Case Discovery | System Rigor |
 | **The Refiner** | Optimization Expert | Vulnerability Patching & Performance Tuning | Hardened Infrastructure |
 | **The Designer** | Brand Identity | UI/UX Audit & Brand Consistency Enforcement | Executive Aesthetics |
+| **Designer Intel** | UI Consultant | Proactive UI/UX Improvement Suggestions | Continuous Evolution |
 
 ---
 

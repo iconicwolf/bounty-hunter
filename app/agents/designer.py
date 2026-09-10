@@ -103,6 +103,31 @@ class DesignerAgent:
             "verdict": verdict
         }
 
+    async def suggest_ui_improvements(self, current_fields: List[str]) -> List[Dict[str, str]]:
+        """
+        Analyzes existing data fields and suggests missing 'Executive' UI components.
+        Returns a list of suggestions with 'title' and 'description'.
+        """
+        logger.info("Analyzing UI for professional improvements...")
+
+        EXECUTIVE_REQUIREMENTS = {
+            "recruiter_contact": "Recruiter Contact Info - Track the primary point of contact for each application.",
+            "follow_up_date": "Follow-up Reminders - Implement a date-based alert system for follow-ups.",
+            "interview_notes": "Interview Stage Notes - Add a rich-text area for capturing feedback after interviews.",
+            "material_used": "Material Tracking - Record which version of the CV/Portfolio was used for the application."
+        }
+
+        suggestions = []
+        for field, description in EXECUTIVE_REQUIREMENTS.items():
+            if field not in current_fields:
+                suggestions.append({
+                    "title": field.replace('_', ' ').title(),
+                    "description": description
+                })
+
+        logger.info(f"Generated {len(suggestions)} UI improvement suggestions.")
+        return suggestions
+
     async def run_design_review(self, page_name: str):
         """Runs a comprehensive design review for a specific page."""
         logger.info(f"🚀 Starting Design Review for {page_name}...")

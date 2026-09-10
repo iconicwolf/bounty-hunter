@@ -33,3 +33,13 @@ async def get_design_spec(component: str):
     designer = DesignerAgent()
     spec = await designer.generate_design_spec(component)
     return spec
+
+@router.get("/designer/suggestions")
+async def get_ui_suggestions():
+    """
+    Get proactive UI/UX improvement suggestions from the Designer Agent based on current model fields.
+    """
+    designer = DesignerAgent()
+    # Use current Application model fields for analysis
+    current_fields = ["company_name", "role_title", "date_applied", "status", "job_url", "match_score", "evidence_path"]
+    return await designer.suggest_ui_improvements(current_fields)

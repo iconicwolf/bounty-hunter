@@ -12,9 +12,9 @@
     <style>
         :root {
             /* Defaults - will be overridden by DesignerAgent API */
-            --corp-navy: #0A192F;
+            --corp-navy: #121212;
             --corp-gold: #D4AF37;
-            --corp-slate: #112240;
+            --corp-slate: #1e1e1e;
             --corp-text: #CCD6F6;
             --corp-text-dim: #8892B0;
         }
@@ -26,15 +26,15 @@
         h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
 
         .executive-glass {
-            background: rgba(17, 34, 64, 0.8);
+            background: rgba(30, 30, 30, 0.8);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(212, 175, 55, 0.1);
-            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
         }
 
         .input-corp {
-            background-color: #020C1B;
-            border: 1px solid #233554;
+            background-color: #0a0a0a;
+            border: 1px solid #2a2a2a;
             color: #E6F1FF;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -50,7 +50,7 @@
 
         .btn-executive {
             background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
-            color: #0A192F;
+            color: #000000;
             font-weight: 600;
             transition: all 0.3s ease;
             text-transform: uppercase;
@@ -92,37 +92,37 @@
 <body class="antialiased">
     <div id="app" class="flex min-h-screen">
         <!-- SIDEBAR -->
-        <nav class="w-72 executive-glass border-r border-slate-800 flex flex-col shrink-0">
+        <nav class="w-72 executive-glass border-r border-zinc-800 flex flex-col shrink-0">
             <div class="p-8 flex flex-col items-center gap-4 mb-10">
                 <img src="http://localhost:8001/static/logo.svg" alt="Logo" class="w-20 h-20">
                 <div class="text-center">
                     <h1 class="text-xl font-bold tracking-widest text-white uppercase">BountyHunter</h1>
-                    <div class="text-[10px] uppercase tracking-widest text-slate-500 font-medium">Executive Suite v1.0</div>
+                    <div class="text-[10px] uppercase tracking-widest text-zinc-500 font-medium">Executive Suite v1.0</div>
                 </div>
             </div>
 
             <div class="flex-1 px-4 space-y-3">
-                <button @click="view = 'dashboard'" :class="{'active': view === 'dashboard'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-slate-400 hover:text-white hover:bg-slate-800/40">
+                <button @click="view = 'dashboard'" :class="{'active': view === 'dashboard'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-zinc-400 hover:text-white hover:bg-zinc-800/40">
                     <i class="fas fa-chart-line w-5"></i> <span>Portfolio</span>
                 </button>
-                <button @click="view = 'history'" :class="{'active': view === 'history'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-slate-400 hover:text-white hover:bg-slate-800/40">
+                <button @click="view = 'history'" :class="{'active': view === 'history'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-zinc-400 hover:text-white hover:bg-zinc-800/40">
                     <i class="fas fa-history w-5"></i> <span>History</span>
                 </button>
-                <button @click="view = 'profile'" :class="{'active': view === 'profile'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-slate-400 hover:text-white hover:bg-slate-800/40">
+                <button @click="view = 'profile'" :class="{'active': view === 'profile'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-zinc-400 hover:text-white hover:bg-zinc-800/40">
                     <i class="fas fa-id-card w-5"></i> <span>Identity</span>
                 </button>
-                <button @click="view = 'filters'" :class="{'active': view === 'filters'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-slate-400 hover:text-white hover:bg-slate-800/40">
+                <button @click="view = 'filters'" :class="{'active': view === 'filters'}" class="nav-executive w-full flex items-center gap-4 px-6 py-4 rounded-r-lg text-zinc-400 hover:text-white hover:bg-zinc-800/40">
                     <i class="fas fa-sliders-h w-5"></i> <span>Parameters</span>
                 </button>
             </div>
 
-            <div class="p-6 border-t border-slate-800">
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <div class="p-6 border-t border-zinc-800">
+                <div class="bg-zinc-900/80 p-4 rounded-xl border border-zinc-800">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-[10px] uppercase text-slate-500 font-bold">Core Engine</span>
+                        <span class="text-[10px] uppercase text-zinc-500 font-bold">Core Engine</span>
                         <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
                     </div>
-                    <div class="text-xs font-medium text-slate-300">Operational</div>
+                    <div class="text-xs font-medium text-zinc-300">Operational</div>
                 </div>
             </div>
         </nav>
@@ -133,7 +133,7 @@
                 <div class="flex justify-between items-end mb-12">
                     <div>
                         <h2 class="text-4xl font-bold text-white mb-2 serif">{{ viewTitles[view] }}</h2>
-                        <p class="text-slate-400 font-light tracking-wide">Executive management of your professional trajectory.</p>
+                        <p class="text-zinc-400 font-light tracking-wide">Executive management of your professional trajectory.</p>
                     </div>
                     <div v-if="view === 'dashboard'" class="flex gap-4">
                         <button @click="triggerHunter" :disabled="loading" class="btn-executive px-8 py-3 rounded-lg flex items-center gap-3 shadow-xl">
@@ -149,37 +149,37 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div class="space-y-6">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Full Name</label>
+                                    <label title="Your full legal name as it should appear on applications." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Full Name</label>
                                     <input v-model="profile.full_name" :class="{'error': errors.full_name}" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="Enter legal name">
                                     <p v-if="errors.full_name" class="text-red-400 text-[11px] mt-1 font-medium">{{ errors.full_name }}</p>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Executive Title</label>
+                                    <label title="Your current or target professional role." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Executive Title</label>
                                     <input v-model="profile.professional_title" :class="{'error': errors.professional_title}" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="e.g. Senior Software Architect">
                                     <p v-if="errors.professional_title" class="text-red-400 text-[11px] mt-1 font-medium">{{ errors.professional_title }}</p>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Corporate Email</label>
+                                    <label title="The primary email address for recruiter correspondence." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Corporate Email</label>
                                     <input v-model="profile.email" type="email" :class="{'error': errors.email}" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="email@corporate.com">
                                     <p v-if="errors.email" class="text-red-400 text-[11px] mt-1 font-medium">{{ errors.email }}</p>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Industry Experience (Years)</label>
+                                    <label title="Total number of years of professional experience in your field." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Industry Experience (Years)</label>
                                     <input v-model.number="profile.experience_years" type="number" :class="{'error': errors.experience_years}" class="input-corp w-full p-3 rounded-lg outline-none">
                                     <p v-if="errors.experience_years" class="text-red-400 text-[11px] mt-1 font-medium">{{ errors.experience_years }}</p>
                                 </div>
                             </div>
                             <div class="space-y-6">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Technical Competencies (comma separated)</label>
+                                    <label title="Core skills and technologies you master (e.g., Python, AWS, React)." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Technical Competencies (comma separated)</label>
                                     <input v-model="skillsInput" @blur="updateSkills" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="Distributed Systems, LLMs, Python...">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Target Designations (comma separated)</label>
+                                    <label title="The specific roles you are targeting (e.g., Staff Engineer, Director)." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Target Designations (comma separated)</label>
                                     <input v-model="rolesInput" @blur="updateRoles" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="VP of Engineering, Staff Engineer...">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Professional Narrative / Key Achievements</label>
+                                    <label title="A summary of your career highlights and value proposition." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Professional Narrative / Key Achievements</label>
                                     <textarea v-model="profile.bio" class="input-corp w-full p-3 rounded-lg outline-none h-32 resize-none"></textarea>
                                 </div>
                             </div>
@@ -198,29 +198,29 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                             <div class="space-y-6">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Strategic Keywords</label>
+                                    <label title="Keywords the agent uses to identify high-match opportunities." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Strategic Keywords</label>
                                     <input v-model="filterInput" @blur="updateFilterKeywords" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="Cloud Native, FinTech, AI Strategy...">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Target Geographies</label>
+                                    <label title="Preferred cities or 'Remote' for location filtering." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Target Geographies</label>
                                     <input v-model="locationInput" @blur="updateFilterLocations" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="Remote, Zurich, Singapore...">
                                 </div>
                             </div>
                             <div class="space-y-6">
-                                <div class="flex items-center justify-between p-5 bg-slate-900/50 rounded-2xl border border-slate-800">
+                                <div class="flex items-center justify-between p-5 bg-zinc-900/50 rounded-2xl border border-zinc-800">
                                     <div class="flex flex-col">
                                         <span class="font-semibold text-white uppercase text-xs tracking-widest">Remote Exclusivity</span>
-                                        <span class="text-xs text-slate-500 font-light">Limit search to distributed-first roles</span>
+                                        <span class="text-xs text-zinc-500 font-light">Limit search to distributed-first roles</span>
                                     </div>
                                     <label class="relative inline-flex items-center cursor-pointer">
                                         <input type="checkbox" v-model="filters.remote_only" class="sr-only peer">
                                         <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#D4AF37]"></div>
                                     </label>
                                 </div>
-                                <div class="flex items-center justify-between p-5 bg-slate-900/50 rounded-2xl border border-slate-800">
+                                <div class="flex items-center justify-between p-5 bg-zinc-900/50 rounded-2xl border border-zinc-800">
                                     <div class="flex flex-col">
                                         <span class="font-semibold text-white uppercase text-xs tracking-widest">Autonomous Application</span>
-                                        <span class="text-xs text-slate-500 font-light">Auto-apply to roles with high match scores</span>
+                                        <span class="text-xs text-zinc-500 font-light">Auto-apply to roles with high match scores</span>
                                     </div>
                                     <label class="relative inline-flex items-center cursor-pointer">
                                         <input type="checkbox" v-model="filters.auto_apply" class="sr-only peer">
@@ -228,7 +228,7 @@
                                     </label>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Minimum Compensation (USD)</label>
+                                    <label title="The baseline annual salary you are willing to accept." class="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-2">Minimum Compensation (USD)</label>
                                     <input v-model.number="filters.min_salary" type="number" class="input-corp w-full p-3 rounded-lg outline-none" placeholder="150000">
                                 </div>
                             </div>
@@ -246,7 +246,7 @@
                     <div class="executive-glass rounded-3xl shadow-2xl border-t-4 border-t-[#D4AF37] overflow-hidden">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="bg-slate-900/50 text-slate-500 text-[10px] uppercase tracking-widest">
+                                <tr class="bg-zinc-900/50 text-zinc-500 text-[10px] uppercase tracking-widest">
                                     <th class="px-6 py-4 font-bold">Company</th>
                                     <th class="px-6 py-4 font-bold">Role</th>
                                     <th class="px-6 py-4 font-bold">Date Applied</th>
@@ -254,24 +254,24 @@
                                     <th class="px-6 py-4 font-bold text-right">Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-800">
-                                <tr v-for="app in historyApps" :key="app.id" class="hover:bg-slate-800/30 transition">
+                            <tbody class="divide-y divide-zinc-800">
+                                <tr v-for="app in historyApps" :key="app.id" class="hover:bg-zinc-800/30 transition">
                                     <td class="px-6 py-4 text-sm font-semibold text-white">{{ app.company_name }}</td>
-                                    <td class="px-6 py-4 text-sm text-slate-400">{{ app.role_title }}</td>
-                                    <td class="px-6 py-4 text-sm text-slate-500">{{ formatDate(app.date_applied) }}</td>
+                                    <td class="px-6 py-4 text-sm text-zinc-400">{{ app.role_title }}</td>
+                                    <td class="px-6 py-4 text-sm text-zinc-500">{{ formatDate(app.date_applied) }}</td>
                                     <td class="px-6 py-4">
                                         <span :class="statusColor(app.status)" class="text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-widest">
                                             {{ app.status }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a :href="app.job_url" target="_blank" class="text-slate-500 hover:text-[#D4AF37] transition">
+                                        <a :href="app.job_url" target="_blank" class="text-zinc-500 hover:text-[#D4AF37] transition">
                                             <i class="fas fa-external-link-alt"></i>
                                         </a>
                                     </td>
                                 </tr>
                                 <tr v-if="historyApps.length === 0">
-                                    <td colspan="5" class="px-6 py-20 text-center text-slate-500 font-light italic">
+                                    <td colspan="5" class="px-6 py-20 text-center text-zinc-500 font-light italic">
                                         No application history found. Deploy the Hunter to start your trajectory.
                                     </td>
                                 </tr>
@@ -285,25 +285,25 @@
                     <!-- Hunt Status Summary -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                         <div class="executive-glass p-6 rounded-2xl border-l-4 border-l-[#D4AF37]">
-                            <div class="text-xs uppercase text-slate-500 font-bold mb-1">Total Opportunities</div>
+                            <div class="text-xs uppercase text-zinc-500 font-bold mb-1">Total Opportunities</div>
                             <div class="text-3xl font-bold text-white serif">{{ apps.length }}</div>
                         </div>
-                        <div class="executive-glass p-6 rounded-2xl border-l-4 border-l-blue-500">
-                            <div class="text-xs uppercase text-slate-500 font-bold mb-1">Active Applications</div>
+                        <div class="executive-glass p-6 rounded-2xl border-l-4 border-l-zinc-500">
+                            <div class="text-xs uppercase text-zinc-500 font-bold mb-1">Active Applications</div>
                             <div class="text-3xl font-bold text-white serif">{{ apps.filter(a => a.status === 'Applied').length }}</div>
                         </div>
                         <div class="executive-glass p-6 rounded-2xl border-l-4 border-l-green-500">
-                            <div class="text-xs uppercase text-slate-500 font-bold mb-1">High Match Rate</div>
+                            <div class="text-xs uppercase text-zinc-500 font-bold mb-1">High Match Rate</div>
                             <div class="text-3xl font-bold text-white serif">{{ calculateMatchRate() }}%</div>
                         </div>
                     </div>
 
                     <div v-if="apps.length === 0" class="text-center py-32 executive-glass rounded-3xl border-dashed border-2 border-slate-700">
-                        <div class="w-24 h-24 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <div class="w-24 h-24 bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-6">
                             <i class="fas fa-crosshairs text-4xl text-slate-600"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-2 serif">Portfolio Empty</h3>
-                        <p class="text-slate-400 max-w-md mx-auto mb-10 font-light">The Hunter Agent is currently in standby. Initiate a sourcing cycle to discover high-value opportunities.</p>
+                        <p class="text-zinc-400 max-w-md mx-auto mb-10 font-light">The Hunter Agent is currently in standby. Initiate a sourcing cycle to discover high-value opportunities.</p>
                         <button @click="triggerHunter" :disabled="loading" class="btn-executive px-10 py-4 rounded-xl flex items-center gap-3 mx-auto shadow-2xl">
                             <i class="fas" :class="loading ? 'fa-spinner fa-spin' : 'fa-search'"></i>
                             {{ loading ? 'Sourcing...' : 'Initiate Hunt' }}
@@ -318,28 +318,28 @@
                                 </span>
                             </div>
                             <div class="flex items-start gap-4 mb-6">
-                                <div class="w-12 h-12 bg-slate-900 rounded-lg flex items-center justify-center text-xl font-bold text-[#D4AF37] border border-slate-700 group-hover:border-[#D4AF37] transition">
+                                <div class="w-12 h-12 bg-zinc-900 rounded-lg flex items-center justify-center text-xl font-bold text-[#D4AF37] border border-slate-700 group-hover:border-[#D4AF37] transition">
                                     {{ app.company_name.charAt(0) }}
                                 </div>
                                 <div class="overflow-hidden">
                                     <h3 class="text-lg font-bold text-white truncate">{{ app.role_title }}</h3>
-                                    <p class="text-slate-400 text-sm truncate">{{ app.company_name }}</p>
+                                    <p class="text-zinc-400 text-sm truncate">{{ app.company_name }}</p>
                                 </div>
                             </div>
 
                             <div class="space-y-3 mb-6">
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Match Score</span>
+                                    <span class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest">Match Score</span>
                                     <span class="text-xs font-bold text-[#D4AF37]">{{ app.match_score || 'N/A' }}%</span>
                                 </div>
-                                <div class="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
+                                <div class="w-full bg-zinc-800 h-1 rounded-full overflow-hidden">
                                     <div class="bg-[#D4AF37] h-full transition-all duration-1000" :style="{ width: (app.match_score || 0) + '%' }"></div>
                                 </div>
-                                <div class="flex items-center gap-3 text-xs text-slate-500">
+                                <div class="flex items-center gap-3 text-xs text-zinc-500">
                                     <i class="fas fa-link w-4 text-center"></i>
                                     <a :href="app.job_url" target="_blank" class="hover:text-white truncate transition">{{ app.job_url }}</a>
                                 </div>
-                                <div class="flex items-center gap-3 text-xs text-slate-500">
+                                <div class="flex items-center gap-3 text-xs text-zinc-500">
                                     <i class="fas fa-calendar-alt w-4 text-center"></i>
                                     {{ formatDate(app.date_applied) }}
                                 </div>
@@ -347,17 +347,17 @@
 
                             <!-- Evidence Section -->
                             <div v-if="app.evidence_path" class="mb-6">
-                                <p class="text-[10px] text-slate-500 mb-2 uppercase font-bold tracking-widest">Captured Evidence</p>
+                                <p class="text-[10px] text-zinc-500 mb-2 uppercase font-bold tracking-widest">Captured Evidence</p>
                                 <div class="relative group/img">
-                                    <img :src="`http://localhost:8001${app.evidence_path}`" class="w-full h-36 object-cover rounded-xl border border-slate-800 cursor-zoom-in transition duration-500 group-hover/img:scale-[1.02]" @click="openImage(app.evidence_path)">
-                                    <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover/img:opacity-100 transition flex items-center justify-center rounded-xl">
+                                    <img :src="`http://localhost:8001${app.evidence_path}`" class="w-full h-36 object-cover rounded-xl border border-zinc-800 cursor-zoom-in transition duration-500 group-hover/img:scale-[1.02]" @click="openImage(app.evidence_path)">
+                                    <div class="absolute inset-0 bg-zinc-900/60 opacity-0 group-hover/img:opacity-100 transition flex items-center justify-center rounded-xl">
                                         <i class="fas fa-expand text-white text-lg"></i>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="flex gap-3">
-                                <button @click="deleteApp(app.id)" class="flex-1 py-3 bg-slate-900 hover:bg-red-900/20 text-slate-500 hover:text-red-400 rounded-xl transition text-xs font-bold uppercase tracking-tighter">
+                                <button @click="deleteApp(app.id)" class="flex-1 py-3 bg-zinc-900 hover:bg-red-900/20 text-zinc-500 hover:text-red-400 rounded-xl transition text-xs font-bold uppercase tracking-tighter">
                                     <i class="fas fa-trash mr-1"></i> Remove
                                 </button>
                                 <a :href="app.job_url" target="_blank" class="flex-1 py-3 btn-executive text-center rounded-xl text-xs">
@@ -372,7 +372,7 @@
 
         <!-- TOAST NOTIFICATIONS -->
         <div class="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
-            <div v-for="toast in toasts" :key="toast.id" class="toast px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3" :class="toast.type === 'success' ? 'bg-slate-800 border-l-4 border-green-500 text-white' : 'bg-slate-800 border-l-4 border-red-500 text-white'">
+            <div v-for="toast in toasts" :key="toast.id" class="toast px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3" :class="toast.type === 'success' ? 'bg-zinc-800 border-l-4 border-green-500 text-white' : 'bg-zinc-800 border-l-4 border-red-500 text-white'">
                 <i :class="toast.type === 'success' ? 'fas fa-check-circle text-green-500' : 'fas fa-exclamation-triangle text-red-500'"></i>
                 <span class="text-sm font-medium">{{ toast.message }}</span>
             </div>
@@ -531,13 +531,13 @@
 
                 const statusColor = (status) => {
                     const colors = {
-                        'Wishlist': 'bg-slate-700 text-slate-300',
-                        'Applied': 'bg-blue-900 text-blue-200',
+                        'Wishlist': 'bg-slate-700 text-zinc-300',
+                        'Applied': 'bg-zinc-800 text-slate-200',
                         'Interviewing': 'bg-purple-900 text-purple-200',
                         'Offer': 'bg-green-900 text-green-200',
                         'Rejected': 'bg-red-900 text-red-200',
                     };
-                    return colors[status] || 'bg-slate-700 text-slate-300';
+                    return colors[status] || 'bg-slate-700 text-zinc-300';
                 };
 
                 const formatDate = (date) => {

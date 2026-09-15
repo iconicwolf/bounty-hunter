@@ -23,6 +23,9 @@ services:
     restart: always
     ports:
       - "8001:8000"
+    volumes:
+      - .:/app
+      - E:/evidence:/evidence
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}
     depends_on:

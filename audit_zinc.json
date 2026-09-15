@@ -1,0 +1,9 @@
+{
+    "change_description": "Replacing slate colors with neutral zinc and fixing box-shadow",
+    "diff_content": "Replaced slate-xxx with zinc-xxx in index.html",
+    "gate_results": {
+        "api_online": true,
+        "theme_compliant": true
+    },
+    "evidence_folder": "theme-zinc-fix"
+}
